@@ -1,0 +1,46 @@
+.hero-banner{position:relative}
+.hero-banner img{display:block;width:100%;height:100%;object-fit:cover}
+.hero-banner .bg-overlay{position:absolute;inset:0}
+
+
+/* category card */
+.cat-card{position:relative;border-radius:0.75rem;overflow:hidden;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -2px rgba(0,0,0,0.1);transition:transform 0.3s ease;cursor:pointer;}
+.cat-card:hover{transform:scale(1.05);}
+.cat-label{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-start;padding:1rem;color:white;font-size:1.25rem;font-weight:600;}
+
+/* product card – same height pictures */
+.prod-card{background:white;border-radius:0.75rem;overflow:hidden;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -2px rgba(0,0,0,0.1);cursor:pointer;transition:transform 0.3s ease,box-shadow 0.3s ease;}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px -10px rgba(0,0,0,0.35);}
+.prod-card img{width:100%;height:20rem;object-fit:cover;}
+@media (max-width:640px){
+	.prod-card img{height:14rem}
+}
+
+/* thumbnail */
+.thumb{width:100%;height:8rem;object-fit:cover;border-radius:0.5rem;cursor:pointer;border:2px solid transparent;transition:border-color 0.2s ease;}
+.thumb:hover{border-color:#4f46e5;}
+
+/* features section */
+.feature-card{transition:transform 0.25s ease,box-shadow 0.25s ease;background:#fff}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(15,23,42,0.08)}
+.feature-card button{background:none;border:0;padding:0;cursor:pointer}
+.feature-card p.hidden{max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.35s ease}
+.feature-card p:not(.hidden){max-height:200px;opacity:1}
+
+/* hero fade helper */
+.hero-fade{transition:opacity 0.8s ease}
+.hero-fade.hidden{opacity:0}
+
+/* cart drawer */
+#cartDrawer{width:320px;right:0;top:0;bottom:0}
+#cartDrawer.open{transform:translateX(0)}
+.cart-body{padding-bottom:1rem}
+
+/* small flash for cart badge */
+.flash{transform:scale(1.15);transition:transform 0.15s ease}
+
+/* product detail image zoom */
+#mainPic img{transition:transform 0.25s ease,transform-origin 0s 0s}
+#mainPic.zoomed img{transform:scale(2)}
+#mainPic img{cursor:zoom-in}
+#mainPic.zoomed img{cursor:zoom-out}
