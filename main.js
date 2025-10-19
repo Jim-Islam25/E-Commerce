@@ -104,6 +104,8 @@ function openDetail(id){
     const rev = $('detailReviews');
     if(desc) desc.innerHTML = `<p>${p.name} — crafted with care. Material: 100% cotton (mix). Wash cold, tumble low. Available in sizes S-XXL.</p>`;
     if(rev) rev.innerHTML = `<div class="space-y-3"><div><strong>Alice</strong> <span class="text-xs text-gray-500">(5/5)</span><div class="text-sm text-gray-600">Lovely fit and color.</div></div><div><strong>Sam</strong> <span class="text-xs text-gray-500">(4/5)</span><div class="text-sm text-gray-600">Good value for the price.</div></div></div>`;
+    // default to Description tab
+    switchDetailTab('desc');
     // render related products (same category, exclude current)
     const related = $('relatedGrid');
     if(related){
@@ -299,4 +301,22 @@ function startHeroRotation(){
             img.classList.remove('hidden');
         }, 500);
     }, 4000);
+}
+
+// switch between Description and Reviews panels
+function switchDetailTab(which){
+    const tabDesc = $('tab-desc'), tabRev = $('tab-rev');
+    const panelDesc = $('panel-desc'), panelRev = $('panel-rev');
+    if(!tabDesc || !tabRev || !panelDesc || !panelRev) return;
+    if(which === 'rev'){
+        tabDesc.setAttribute('aria-selected','false');
+        tabRev.setAttribute('aria-selected','true');
+        panelDesc.classList.add('hidden');
+        panelRev.classList.remove('hidden');
+    } else {
+        tabDesc.setAttribute('aria-selected','true');
+        tabRev.setAttribute('aria-selected','false');
+        panelDesc.classList.remove('hidden');
+        panelRev.classList.add('hidden');
+    }
 }

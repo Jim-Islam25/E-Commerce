@@ -206,13 +206,19 @@
             <div class="mt-8 border-t pt-6 text-sm text-gray-600">
                 <p><strong>Category:</strong> <span id="detailCat">Men</span></p>
                 <div class="mt-4">
-                    <h4 class="font-semibold">Description</h4>
-                    <div id="detailDescription" class="mt-2 text-gray-700">Additional information will appear here.</div>
-                </div>
+                    <!-- Tabs for Description / Reviews -->
+                    <div role="tablist" aria-label="Product detail tabs" class="flex gap-2">
+                        <button id="tab-desc" role="tab" aria-selected="true" aria-controls="panel-desc" onclick="switchDetailTab('desc')" class="tab-btn px-3 py-2 rounded-md">Description</button>
+                        <button id="tab-rev" role="tab" aria-selected="false" aria-controls="panel-rev" onclick="switchDetailTab('rev')" class="tab-btn px-3 py-2 rounded-md">Reviews</button>
+                    </div>
 
-                <div class="mt-6">
-                    <h4 class="font-semibold">Reviews</h4>
-                    <div id="detailReviews" class="mt-2 text-sm text-gray-600">No reviews yet.</div>
+                    <div id="panel-desc" role="tabpanel" aria-labelledby="tab-desc" class="mt-3">
+                        <div id="detailDescription" class="text-gray-700">Additional information will appear here.</div>
+                    </div>
+
+                    <div id="panel-rev" role="tabpanel" aria-labelledby="tab-rev" class="mt-3 hidden">
+                        <div id="detailReviews" class="text-sm text-gray-600">No reviews yet.</div>
+                    </div>
                 </div>
             </div>
         </div>
