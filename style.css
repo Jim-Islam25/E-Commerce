@@ -48,3 +48,26 @@
 /* tabs */
 .tab-btn{background:#f3f4f6;border:1px solid #e5e7eb}
 .tab-btn[aria-selected="true"]{background:#111827;color:white;border-color:#111827}
+
+/* small animations */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(6px); } }
+@keyframes popIn { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.fade-in{animation:fadeIn 260ms ease both}
+.fade-out{animation:fadeOut 200ms ease both}
+.reveal{animation:popIn 320ms cubic-bezier(.2,.9,.3,1) both}
+
+/* Global hover/focus polish */
+.prod-card:hover img{transform:scale(1.03);transition:transform 300ms ease}
+.prod-card:focus-within{outline:2px solid rgba(59,130,246,0.25);outline-offset:4px}
+.feature-card:focus-within, .cat-card:focus-within{outline:2px solid rgba(59,130,246,0.15);outline-offset:3px}
+
+/* buttons */
+.tab-btn, button{transition:transform 150ms ease,box-shadow 150ms ease}
+button:hover, .tab-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(2,6,23,0.06)}
+button:active, .tab-btn:active{transform:translateY(0)}
+
+/* subtle image hover on category cards */
+.cat-card img{transition:transform 300ms ease}
+.cat-card:hover img{transform:scale(1.04)}

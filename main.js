@@ -39,8 +39,17 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             e.preventDefault();
-            const tgt = document.querySelector(a.getAttribute('href'));
-            if(tgt) tgt.scrollIntoView({behavior:'smooth'});
+            const href = a.getAttribute('href');
+            const tgt = document.querySelector(href);
+            const detail = $('detailPage');
+            // if detail page is open, close it first so sections in the home page are visible
+            if(detail && !detail.classList.contains('hidden')){
+                closeDetail();
+                // wait a short moment for DOM to un-hide then scroll
+                if(tgt) setTimeout(()=>tgt.scrollIntoView({behavior:'smooth'}), 80);
+            } else {
+                if(tgt) tgt.scrollIntoView({behavior:'smooth'});
+            }
         });
     });
     renderCart();
@@ -59,7 +68,7 @@ function renderProducts() {
     const grid = $('productGrid');
     if(!grid) return;
     const filtered = currentFilter === 'all' ? products : products.filter(p => p.cat === currentFilter);
-        grid.innerHTML = filtered.map(p => `
+        grid.innerHTML = filtered.map((p,i) => `
         <article class="prod-card">
             <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/600x400?text=No+Image'" onclick="openDetail(${p.id})" class="w-full h-80 object-cover cursor-pointer">
             <div class="p-4 text-center">
@@ -71,6 +80,11 @@ function renderProducts() {
                 </div>
             </div>
         </article>`).join('');
+    // add reveal animation with small stagger
+    Array.from(grid.querySelectorAll('.prod-card')).forEach((el, idx) => {
+        el.style.animationDelay = `${idx * 60}ms`;
+        el.classList.add('reveal');
+    });
 }
 
 
@@ -308,15 +322,28 @@ function switchDetailTab(which){
     const tabDesc = $('tab-desc'), tabRev = $('tab-rev');
     const panelDesc = $('panel-desc'), panelRev = $('panel-rev');
     if(!tabDesc || !tabRev || !panelDesc || !panelRev) return;
+    // animate panels
     if(which === 'rev'){
         tabDesc.setAttribute('aria-selected','false');
         tabRev.setAttribute('aria-selected','true');
-        panelDesc.classList.add('hidden');
-        panelRev.classList.remove('hidden');
+        panelDesc.classList.add('fade-out');
+        setTimeout(()=>{
+            panelDesc.classList.add('hidden');
+            panelDesc.classList.remove('fade-out');
+            panelRev.classList.remove('hidden');
+            panelRev.classList.add('fade-in');
+            setTimeout(()=>panelRev.classList.remove('fade-in'),300);
+        },200);
     } else {
         tabDesc.setAttribute('aria-selected','true');
         tabRev.setAttribute('aria-selected','false');
-        panelDesc.classList.remove('hidden');
-        panelRev.classList.add('hidden');
+        panelRev.classList.add('fade-out');
+        setTimeout(()=>{
+            panelRev.classList.add('hidden');
+            panelRev.classList.remove('fade-out');
+            panelDesc.classList.remove('hidden');
+            panelDesc.classList.add('fade-in');
+            setTimeout(()=>panelDesc.classList.remove('fade-in'),300);
+        },200);
     }
 }
